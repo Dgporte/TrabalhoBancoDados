@@ -1,0 +1,316 @@
+--OBS.: ÚNICA INSERSÃO ATÉ PEDIDO - NECESSÁRIO INSERIR UM PEDIDO ÍTEM POR VEZ.
+--INSERT ENDEREÇO
+--SELECT * FROM shein.endereco;
+
+INSERT INTO shein.endereco (cep, bairro, cidade, uf) VALUES 
+('01000000', 'Centro', 'São Paulo', 'SP'),
+('22290001', 'Barra', 'Rio de Janeiro', 'RJ'),
+('01310000', 'Paulista', 'São Paulo', 'SP'), 
+('30130000', 'Savassi', 'Belo Horizonte', 'MG'),
+('11010100', 'Vila Mathias', 'Santos', 'SP'),
+('04040000', 'Itaim Bibi', 'São Paulo', 'SP'), 
+('30310000', 'Serra', 'Belo Horizonte', 'MG'), 
+('81310000', 'Santa Felicidade', 'Curitiba', 'PR'),
+('80230000', 'Centro', 'Curitiba', 'PR'),
+('80230000', 'Centro', 'Curitiba', 'PR');
+
+--INSERT EMPRESA
+--SELECT * FROM shein.empresa;
+
+INSERT INTO shein.empresa (razao_social, nm_fantasia, cnpj, idendereco, email_empresa) VALUES 
+('Shein Tudo - Loja Centro', 'Shein Centro', '12345678000196', 1, 'contato@sheincentro.com'),
+('Shein Tudo - Loja Barra', 'Shein Barra', '23456789000197', 2, 'contato@sheinbarra.com'),
+('Shein Tudo - Loja Paulista', 'Shein Paulista', '34567890000198', 3, 'contato@sheinpaulista.com'),
+('Shein Tudo - Loja Savassi', 'Shein Savassi', '45678900000199', 4, 'contato@sheinsavassi.com'),
+('Shein Tudo - Loja Curitiba', 'Shein Curitiba', '56789000000200', 10, 'contato@sheincuritiba.com');
+
+--INSERT CATEGORIA
+--SELECT * FROM shein.categoria;
+
+INSERT INTO shein.categoria (nome_cate, ds_categoria) VALUES 
+('Eletrônicos', 'Categoria para produtos eletrônicos'),
+('Roupas', 'Categoria para vestuário'),
+('Livros', 'Categoria para literatura'),
+('Móveis', 'Categoria para móveis'),
+('Beleza', 'Categoria para produtos de beleza');
+
+--INSERT PRODUTOS
+--SELECT * FROM shein.produto;
+
+INSERT INTO shein.produto (qtestoque, vl_unitario, idcategoria, dcproduto, nmproduto, dt_fabricacao) VALUES 
+(100, 299.99, 1, 'Smartphone Android com 128GB de armazenamento', 'Smartphone X', '2024-01-10'),
+(50, 149.99, 1, 'Fone de ouvido Bluetooth com cancelamento de ruído', 'Fone Pro', '2024-02-15'),
+(30, 999.99, 1, 'Notebook com 16GB RAM e 512GB SSD', 'Notebook Ultra', '2024-03-01'),
+(200, 59.99, 2, 'Camiseta de algodão com estampa floral', 'Camiseta Floral', '2024-01-15'),
+(150, 89.99, 2, 'Jaqueta de couro com fechamento em zíper', 'Jaqueta Couro', '2024-02-10'),
+(80, 49.99, 2, 'Calça jeans escura com stretch', 'Calça Jeans', '2024-03-05'),
+(500, 29.99, 3, 'Romance histórico sobre a Revolução Francesa', 'O Tempo das Luzes', '2023-12-01'),
+(300, 19.99, 3, 'Guia de culinária para iniciantes', 'Cozinha Fácil', '2024-01-20'),
+(150, 39.99, 3, 'Biografia de uma personalidade famosa', 'Vida e Obra', '2024-02-15'),
+(20, 1200.00, 4, 'Sofá de 3 lugares com revestimento em veludo', 'Sofá Luxo', '2023-11-20'),
+(15, 350.00, 4, 'Mesa de jantar com 6 cadeiras', 'Mesa Elegante', '2023-12-10'),
+(25, 499.99, 4, 'Estante para livros com 5 prateleiras', 'Estante Moderna', '2024-01-15'),
+(100, 39.99, 5, 'Creme hidratante para pele seca', 'Creme Hidratante', '2024-01-05'),
+(80, 19.99, 5, 'Shampoo para cabelos danificados', 'Shampoo Revitalizante', '2024-02-10'),
+(60, 49.99, 5, 'Perfume feminino com notas florais', 'Perfume Elegance', '2024-03-01');
+
+--INSERT LOGIN
+--SELECT * FROM shein.login;
+
+INSERT INTO shein.login (email, login, tabela) VALUES 
+('pedro.martins@exemplo.com', 'pedro.martins', 'F'),
+('lucas.almeida@exemplo.com', 'lucas.almeida', 'F'),
+('fernanda.costa@exemplo.com', 'fernanda.costa', 'F'),
+('marcos.pereira@exemplo.com', 'marcos.pereira', 'F'),
+('juliana.santos@exemplo.com', 'juliana.santos', 'F'),
+('joao.silva@exemplo.com', 'joao.silva', 'C'),
+('maria.oliveira@exemplo.com', 'maria.oliveira', 'C'),
+('carlos.souza@exemplo.com', 'carlos.souza', 'C'),
+('ana.lima@exemplo.com', 'ana.lima', 'C'),
+('paula.mendes@exemplo.com', 'paula.mendes', 'C');
+
+--INSERT LOGIN
+--SELECT * FROM shein.usuario_funcionario;
+
+INSERT INTO shein.usuario_funcionario (idlogin, nmfunc, cpffunc) VALUES 
+(1, 'Pedro Martins', '67890123456'),
+(2, 'Lucas Almeida', '78901234567'),
+(3, 'Fernanda Costa', '89012345678'),
+(4, 'Marcos Pereira', '90123456789'),
+(5, 'Juliana Santos', '01234567890');
+
+--INSERT CLIENTE
+--SELECT * FROM shein.cliente;
+
+INSERT INTO shein.cliente (nome_cp, cpf, dt_nascimento, sexo, idlogin) VALUES 
+('João Silva', '12345678901', '1980-01-01', 'M', 6),
+('Maria Oliveira', '23456789012', '1990-02-02', 'F', 7),
+('Carlos Souza', '34567890123', '1985-03-03', 'M', 8),
+('Ana Lima', '45678901234', '1995-04-04', 'F', 9),
+('Paula Mendes', '56789012345', '1975-05-05', 'F', 10);
+
+--INSERT ENDEREÇO CLIENTE
+--SELECT * FROM shein.cliente_endereco;
+
+INSERT INTO shein.cliente_endereco (idendereco, idcliente, num_endereco, complemento_ed) VALUES 
+(6, 1, '101', 'Apto 1'),
+(7, 2, '202', 'Casa 2'),
+(8, 3, '303', 'Bloco 3'),
+(9, 4, '404', 'Cobertura'),
+(5, 5, '505', 'Sala 5');
+
+--INSERT PEDIDO
+--SELECT * FROM shein.pedido;
+
+INSERT INTO shein.pedido (idcliente, descricao, idusuariofun) VALUES 
+(1, 'Compra no varejo', 1),
+(2, 'Compra para revenda', 2),
+(3, 'Brindes', 2),
+(4, 'Presentes', 3),
+(5, 'Presentes', 2);
+
+--INSERT PEDIDO ITEM
+--SELECT * FROM shein.pedido_item
+--SELECT * FROM shein.produto
+--1--
+
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra) 
+SELECT 1, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    4, -- qtpedido
+    '2024-08-27' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.nmproduto = 'Smartphone X';	
+--2--
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra) 
+SELECT 1, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    1, -- qtpedido
+    '2024-08-27' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.idproduto = 2
+--3--
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra)
+SELECT 2, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    2, -- qtpedido
+    '2024-08-20' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.nmproduto = 'Notebook Ultra';	
+	
+--4--
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra) 
+SELECT 2, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    3, -- qtpedido
+    '2024-08-27' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.idproduto = 6
+
+
+--5--
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra) 
+SELECT 3, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    1, -- qtpedido
+    '2024-08-27' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.idproduto = 10
+	
+--6--
+INSERT INTO shein.pedido_item (idpedido, desconto, imposto, acrescimo, frete, valor_total, idproduto, valor_unitario, qtpedido, dt_compra) 
+SELECT 4, 0, 0, 0, 0,
+    (p.vl_unitario * 2) + 0, -- valor_total
+    p.idproduto,
+    p.vl_unitario,
+    3, -- qtpedido
+    '2024-08-27' -- dt_compra
+FROM
+    shein.produto p
+WHERE
+    p.idproduto = 12
+
+
+--INSERT NOTA FISCAL
+--SELECT * FROM shein.nota_fiscal
+
+INSERT INTO shein.nota_fiscal (dt_emissao, observacao)
+VALUES 
+('2024-08-30','Ref aos Pedido 3 e 4'),
+('2024-08-20','Ref. ao Pedido 2'),
+('2024-08-27','Ref. ao Pedido 1'),
+('2024-08-27','Ref ao Pedido 2');
+
+
+--INSERT NOTA FISCAL PEDIDOS
+--SELECT * FROM shein.nota_fiscal_pedido
+--1--
+INSERT INTO shein.nota_fiscal_pedido (idnotafiscal, idpedido, dt_emissao, desconto, imposto, acrescimo, frete, valor_total)
+SELECT
+    1 AS idnotafiscal,
+    p.idpedido,
+    CURRENT_DATE,  -- Data de emissão
+    COALESCE(SUM(pi.desconto), 0) AS desconto,
+    COALESCE(SUM(pi.imposto), 0) AS imposto,
+    COALESCE(SUM(pi.acrescimo), 0) AS acrescimo,
+    COALESCE(SUM(pi.frete), 0) AS frete,
+    COALESCE(SUM(pi.valor_total), 0) AS valor_total
+FROM
+    shein.pedido_item pi
+JOIN
+    shein.pedido p ON pi.idpedido = p.idpedido
+WHERE
+    p.idpedido = 1
+GROUP BY
+    p.idpedido;
+
+--2--
+INSERT INTO shein.nota_fiscal_pedido (idnotafiscal, idpedido, dt_emissao, desconto, imposto, acrescimo, frete, valor_total)
+SELECT
+    2 AS idnotafiscal,
+    p.idpedido,
+    CURRENT_DATE,  -- Data de emissão
+    COALESCE(SUM(pi.desconto), 0) AS desconto,
+    COALESCE(SUM(pi.imposto), 0) AS imposto,
+    COALESCE(SUM(pi.acrescimo), 0) AS acrescimo,
+    COALESCE(SUM(pi.frete), 0) AS frete,
+    COALESCE(SUM(pi.valor_total), 0) AS valor_total
+FROM
+    shein.pedido_item pi
+JOIN
+    shein.pedido p ON pi.idpedido = p.idpedido
+WHERE
+    p.idpedido = 2
+GROUP BY
+    p.idpedido;
+
+--3--
+	INSERT INTO shein.nota_fiscal_pedido (idnotafiscal, idpedido, dt_emissao, desconto, imposto, acrescimo, frete, valor_total)
+SELECT
+    3 AS idnotafiscal,
+    p.idpedido,
+    CURRENT_DATE,  -- Data de emissão
+    COALESCE(SUM(pi.desconto), 0) AS desconto,
+    COALESCE(SUM(pi.imposto), 0) AS imposto,
+    COALESCE(SUM(pi.acrescimo), 0) AS acrescimo,
+    COALESCE(SUM(pi.frete), 0) AS frete,
+    COALESCE(SUM(pi.valor_total), 0) AS valor_total
+FROM
+    shein.pedido_item pi
+JOIN
+    shein.pedido p ON pi.idpedido = p.idpedido
+WHERE
+    p.idpedido = 2
+GROUP BY
+    p.idpedido;
+	
+--4--
+	INSERT INTO shein.nota_fiscal_pedido (idnotafiscal, idpedido, dt_emissao, desconto, imposto, acrescimo, frete, valor_total)
+SELECT
+    4 AS idnotafiscal,
+    p.idpedido,
+    CURRENT_DATE,  -- Data de emissão
+    COALESCE(SUM(pi.desconto), 0) AS desconto,
+    COALESCE(SUM(pi.imposto), 0) AS imposto,
+    COALESCE(SUM(pi.acrescimo), 0) AS acrescimo,
+    COALESCE(SUM(pi.frete), 0) AS frete,
+    COALESCE(SUM(pi.valor_total), 0) AS valor_total
+FROM
+    shein.pedido_item pi
+JOIN
+    shein.pedido p ON pi.idpedido = p.idpedido
+WHERE
+    p.idpedido = 3
+GROUP BY
+    p.idpedido;
+
+	--5--
+	INSERT INTO shein.nota_fiscal_pedido (idnotafiscal, idpedido, dt_emissao, desconto, imposto, acrescimo, frete, valor_total)
+SELECT
+    4 AS idnotafiscal,
+    p.idpedido,
+    CURRENT_DATE,  -- Data de emissão
+    COALESCE(SUM(pi.desconto), 0) AS desconto,
+    COALESCE(SUM(pi.imposto), 0) AS imposto,
+    COALESCE(SUM(pi.acrescimo), 0) AS acrescimo,
+    COALESCE(SUM(pi.frete), 0) AS frete,
+    COALESCE(SUM(pi.valor_total), 0) AS valor_total
+FROM
+    shein.pedido_item pi
+JOIN
+    shein.pedido p ON pi.idpedido = p.idpedido
+WHERE
+    p.idpedido = 4
+GROUP BY
+    p.idpedido;
+
+--INSERT NOTA ITENS
+--SELECT * FROM shein.pedido_item
+--SELECT * FROM shein.nota_itens
+
+INSERT INTO shein.nota_itens (idnotafiscal, idpedidoitem) VALUES 
+(1, 1),
+(2, 3),
+(3, 4),
+(4, 5),
+(4, 6);

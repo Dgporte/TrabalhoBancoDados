@@ -1,0 +1,159 @@
+--ALTERAÇÃO DE ERRO DE DIGITAÇÃO NA TABELA EMPRESA - COLUNA ENDERECO
+ALTER TABLE shein.empresa
+RENAME COLUMN idendereço TO idendereco;
+
+--EXCLUSÃO DA COLUNA VALOR TOTAL /IDENDERECO
+ALTER TABLE shein.pedido
+DROP COLUMN idendereco;
+DROP COLUMN valortotal;
+
+--EXCLUSÃO E INCLUSÃO DE COLUNAS
+ALTER TABLE shein.nota_fiscal
+DROP COLUMN desconto,
+DROP COLUMN imposto,
+DROP COLUMN acrescimo,
+DROP COLUMN frete,
+DROP COLUMN valor_total,
+ADD COLUMN observacao TEXT;
+
+----EXCLUIR PRODUTO----
+
+DELETE FROM shein.produto where id_produto = 9; 
+
+----ENTRADA NO ESTOQUE----
+
+UPDATE shein.produto
+SET qtestoque = qtestoque + 10
+WHERE idproduto = 1;
+
+
+----NF----
+SELECT
+    nf.idnotafiscal,
+    nf.dt_emissao,
+    nf.observacao,
+    p.idpedido,
+    c.nome_cp AS cliente,
+    pi.idpedidoitem,
+    prod.nmproduto,
+    pi.qtpedido,
+    pi.valor_unitario,
+    (pi.qtpedido * pi.valor_unitario) AS subtotal,
+    nfp.desconto,
+    nfp.imposto,
+    nfp.acrescimo,
+    nfp.frete,
+    nfp.valor_total
+FROM
+    shein.nota_fiscal nf
+JOIN
+    shein.nota_fiscal_pedido nfp ON nf.idnotafiscal = nfp.idnotafiscal
+JOIN
+    shein.pedido p ON nfp.idpedido = p.idpedido
+JOIN
+    shein.cliente c ON p.idcliente = c.idcliente
+JOIN
+    shein.pedido_item pi ON p.idpedido = pi.idpedido
+JOIN
+    shein.produto prod ON pi.idproduto = prod.idproduto
+WHERE
+    nf.idnotafiscal = 1;
+
+---- CONSULTA - GERAR 1 PEDIDO PARA 1 NF ----
+SELECT
+    nf.idnotafiscal,
+    nf.dt_emissao,
+    p.idpedido,
+    pi.idproduto,
+    prod.nmproduto,
+    pi.qtpedido,
+    pi.valor_unitario,
+    (pi.qtpedido * pi.valor_unitario) AS subtotal
+FROM
+    shein.nota_fiscal nf
+JOIN
+    shein.nota_fiscal_pedido nfp ON nf.idnotafiscal = nfp.idnotafiscal
+JOIN
+    shein.pedido p ON nfp.idpedido = p.idpedido
+JOIN
+    shein.pedido_item pi ON p.idpedido = pi.idpedido
+JOIN
+    shein.produto prod ON pi.idproduto = prod.idproduto
+WHERE
+    nf.idnotafiscal = 1;
+	
+---- CONSULTA - GERAR 1 PEDIDO PARA 2 NF ----
+
+SELECT
+    nf.idnotafiscal,
+    nf.dt_emissao,
+    p.idpedido,
+    pi.idproduto,
+    pr.nmproduto,
+    pi.qtpedido,
+    pi.valor_unitario,
+    (pi.qtpedido * pi.valor_unitario) AS subtotal
+FROM
+    shein.nota_fiscal nf
+JOIN
+    shein.nota_fiscal_pedido nfp ON nf.idnotafiscal = nfp.idnotafiscal
+JOIN
+    shein.pedido p ON nfp.idpedido = p.idpedido
+JOIN
+    shein.pedido_item pi ON p.idpedido = pi.idpedido
+JOIN
+    shein.produto pr ON pi.idproduto = pr.idproduto
+WHERE
+    p.idpedido = 2;
+	
+---- CONSULTA - GERAR 2 PEDIDOS PARA 1 NF ----
+
+SELECT
+    nf.idnotafiscal,
+    nf.dt_emissao,
+    p.idpedido,
+    pi.idproduto,
+    pr.nmproduto,
+    pi.qtpedido,
+    pi.valor_unitario,
+    (pi.qtpedido * pi.valor_unitario) AS subtotal
+FROM
+    shein.nota_fiscal nf
+JOIN
+    shein.nota_fiscal_pedido nfp ON nf.idnotafiscal = nfp.idnotafiscal
+JOIN
+    shein.pedido p ON nfp.idpedido = p.idpedido
+JOIN
+    shein.pedido_item pi ON p.idpedido = pi.idpedido
+JOIN
+    shein.produto pr ON pi.idproduto = pr.idproduto
+WHERE
+    nf.idnotafiscal = 4;
+	
+---- LISTAR OS CLIENTES E OS PEDIDOS ---
+
+SELECT
+    c.nome_cp AS cliente,
+    COUNT(p.idpedido) AS total_pedidos
+FROM
+    shein.cliente c
+JOIN
+    shein.pedido p ON c.idcliente = p.idcliente
+GROUP BY
+    c.nome_cp
+ORDER BY
+    total_pedidos DESC;
+
+---- LISTAR QUANTIDADE DE PRODUTOS QUE TEM EM CADA CATEGORIA ---
+SELECT
+    c.nome_cate AS categoria,
+    COUNT(p.idproduto) AS total_produtos
+FROM
+    shein.produto p
+JOIN
+    shein.categoria c ON p.idcategoria = c.idcategoria
+GROUP BY
+    c.nome_cate
+ORDER BY
+    total_produtos DESC;
+

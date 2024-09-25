@@ -1,0 +1,119 @@
+--CREATE DATABASE Shein_Tudo;
+
+CREATE SCHEMA shein;
+
+CREATE TABLE shein.endereco (
+    idendereco SERIAL PRIMARY KEY,
+    cep VARCHAR(8) NOT NULL,
+    bairro VARCHAR(30) NOT NULL,
+    cidade VARCHAR(30) NOT NULL,
+    uf VARCHAR(2) NOT NULL
+);
+
+CREATE TABLE shein.categoria (
+    idcategoria SERIAL PRIMARY KEY,
+    nome_cate VARCHAR(30),
+    ds_categoria TEXT
+);
+
+CREATE TABLE shein.login (
+    idlogin SERIAL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL, 
+    login VARCHAR(16),
+    tabela VARCHAR(1) -- drop
+);
+
+CREATE TABLE shein.cliente (
+    idcliente SERIAL PRIMARY KEY,
+    nome_cp VARCHAR(200) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    dt_nascimento DATE NOT NULL,
+    sexo VARCHAR(1),
+    idlogin INT REFERENCES shein.login(idlogin) UNIQUE
+);
+
+CREATE TABLE shein.produto (
+    idproduto SERIAL PRIMARY KEY,
+    qtestoque INT NOT NULL,
+    vl_unitario DOUBLE PRECISION NOT NULL,
+    idcategoria INT REFERENCES shein.categoria(idcategoria),
+    dcproduto TEXT,
+    nmproduto VARCHAR(120),
+    dt_fabricacao DATE
+);
+
+CREATE TABLE shein.cliente_endereco (
+    idendereco INT REFERENCES shein.endereco(idendereco),
+    idcliente INT REFERENCES shein.cliente(idcliente),
+    num_endereco VARCHAR(15) NOT NULL,
+    complemento_ed VARCHAR(250)
+);
+
+CREATE TABLE shein.usuario_funcionario (
+    idusuariofun SERIAL PRIMARY KEY,
+    idlogin INT REFERENCES shein.login(idlogin) UNIQUE, 
+    nmfunc VARCHAR(50),
+    cpffunc VARCHAR(11)
+);
+
+CREATE TABLE shein.pedido (
+    idpedido SERIAL PRIMARY KEY,
+    --idendereco INT REFERENCES shein.endereco(idendereco),-- coluna excluída
+    idcliente INT REFERENCES shein.cliente(idcliente),
+    descricao TEXT,
+    --valortotal DOUBLE PRECISION, -- coluna excluída
+    idusuariofun INT REFERENCES shein.usuario_funcionario(idusuariofun)
+); -- drop
+
+CREATE TABLE shein.empresa (
+    idempresa SERIAL PRIMARY KEY,
+    razao_social VARCHAR(120), 
+    nm_fantasia VARCHAR(100) NOT NULL,
+    cnpj VARCHAR(14) NOT NULL,
+    idendereco INT REFERENCES shein.endereco(idendereco), --acerto de digitação
+    email_empresa VARCHAR(120) NOT NULL
+);
+
+
+CREATE TABLE shein.pedido_item (
+    idpedidoitem SERIAL PRIMARY KEY,
+    idpedido INT REFERENCES shein.pedido(idpedido),
+    desconto DOUBLE PRECISION,
+    imposto DOUBLE PRECISION,
+    acrescimo DECIMAL,
+    frete DECIMAL,
+    valor_total DOUBLE PRECISION NOT NULL,
+    idproduto INT REFERENCES shein.produto(idproduto),
+    valor_unitario DOUBLE PRECISION NOT NULL, 
+    qtpedido INT,
+    dt_compra DATE
+);
+
+CREATE TABLE shein.nota_fiscal (
+    idnotafiscal SERIAL PRIMARY KEY,
+    dt_emissao DATE,
+    --desconto DOUBLE PRECISION, --- coluna excluída
+    --imposto DOUBLE PRECISION,--- coluna excluída
+    --acrescimo DECIMAL,--- coluna excluída
+    --frete DECIMAL,--- coluna excluída
+    --valor_total DOUBLE PRECISION NOT NULL--coluna excluída
+	observacao TEXT
+);
+
+CREATE TABLE shein.nota_fiscal_pedido (
+    idnotafiscal INT REFERENCES shein.nota_fiscal(idnotafiscal),
+    idpedido INT REFERENCES shein.pedido(idpedido),
+    dt_emissao DATE,
+    desconto DOUBLE PRECISION,
+    imposto DOUBLE PRECISION,
+    acrescimo DECIMAL,
+    frete DECIMAL,
+    valor_total DOUBLE PRECISION NOT NULL,
+    CONSTRAINT nf_pedido_pk PRIMARY KEY (idnotafiscal, idpedido) 
+);
+
+CREATE TABLE shein.nota_itens (
+    idnotaitens SERIAL PRIMARY KEY,
+    idnotafiscal INT REFERENCES shein.nota_fiscal(idnotafiscal),
+    idpedidoitem INT REFERENCES shein.pedido_item(idpedidoitem)
+);
